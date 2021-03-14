@@ -2,7 +2,13 @@
   <div id="main-app" class="container">
     <div class="row justify-content-center">
       <add-appointment @add="addItem" />
-      <search-appointments @searchRecords="searchAppointments" />
+      <search-appointments
+        :myKey="filterKey"
+        :myDir="filterDir"
+        @searchRecords="searchAppointments"
+        @requestKey="changeKey"
+        @requestDir="changeDir"
+      />
       <appointment-list
         :appointments="filteredApts"
         @remove="removeItem"
@@ -83,6 +89,12 @@ export default {
       apt.aptId = this.aptIndex;
       this.aptIndex++;
       this.appointments.push(apt);
+    },
+    changeKey(value) {
+      this.filterKey = value;
+    },
+    changeDir(value) {
+      this.filterDir = value;
     }
   }
 };
